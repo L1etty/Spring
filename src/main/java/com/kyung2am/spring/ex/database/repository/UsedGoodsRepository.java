@@ -13,4 +13,5 @@ public interface UsedGoodsRepository {
 		
 	// used_goods 테이블 데이터 조회 리턴
 	public List<UsedGoods> selectUsedGoodsList();
+	
 }
