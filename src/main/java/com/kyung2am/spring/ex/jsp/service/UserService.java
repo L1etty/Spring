@@ -3,6 +3,7 @@ package com.kyung2am.spring.ex.jsp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kyung2am.spring.ex.jsp.domain.User;
 import com.kyung2am.spring.ex.jsp.repository.UserRepository;
 
 @Service
@@ -17,6 +18,11 @@ public class UserService {
 		int count = userRepository.insertUser(name, birthday, email, introduce);
 		
 		return count;
+	}
+	
+	public User getLastUser() {
+		User user = userRepository.selectLastUser();
+		return user;
 	}
 
 }

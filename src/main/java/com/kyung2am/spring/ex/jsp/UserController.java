@@ -2,6 +2,7 @@ package com.kyung2am.spring.ex.jsp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kyung2am.spring.ex.jsp.domain.User;
 import com.kyung2am.spring.ex.jsp.service.UserService;
 
 @Controller
@@ -38,6 +40,17 @@ public class UserController {
 	@GetMapping("/input")
 	public String userInput(){
 		return "/jsp/userInput";
+	}
+	
+	// 가장 최근에 등록된 사용자 정보
+	@GetMapping("/lastuser")
+	public String lastUser(Model model) {
+		
+		User user =userService.getLastUser();
+		
+		model.addAttribute("result", user);
+		
+		return "/jsp/userInfo";
 	}
 	
 }

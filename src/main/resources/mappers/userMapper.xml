@@ -21,7 +21,20 @@
  				, #{email}
  				, #{introduce}
  			)
- 			
- 		
  	</insert>
+ 	<select id="selectLastUser" resultType="com.kyung2am.spring.ex.jsp.domain.User">
+ 		SELECT
+ 			`id`
+			, `name`
+			, `yyyymmdd`
+			, `email`
+			, `introduce`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`new_user`
+		ORDER BY
+			`updatedAt` DESC
+		LIMIT 1
+ 	</select>
  </mapper>
