@@ -16,6 +16,8 @@ public interface UserRepository {
 			, @Param("introduce") String introduce
 			);
 	
+	public int insertUserByObject(User user);
+	
 	// 가장 최근 사용자 정보 조회
 	public User selectLastUser();
 	

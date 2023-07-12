@@ -23,17 +23,29 @@ public class UserController {
 	// 이름, 생년월일, 이메일, 자기소개, 전달 받고, 데이터 저장
 //	@RequestMapping(path="/jsp/user/add", method = RequestMethod.POST)
 	@PostMapping("/add")
-	@ResponseBody
+//	@ResponseBody
 	public String createUser(
 			@RequestParam("name") String name
 			, @RequestParam("birthday") String birthday
 			, @RequestParam("email") String email
 			, @RequestParam("introduce") String introduce
+			, Model model
 			){
 		
-		int count = userService.addUser(name, birthday, email, introduce);
+//		int count = userService.addUser(name, birthday, email, introduce);
 		
-		return "성공 갯수 : " + count;
+		User user = new User();
+		user.setName(name);
+		user.setYyyymmdd(birthday);
+		user.setEmail(email);
+		user.setIntroduce(introduce);
+		
+		int count = userService.addUserByObject(user);
+		
+		model.addAttribute("result", user);
+		
+//		return "성공 갯수 : " + count;
+		return "/jsp/userInfo";
 	}
 	
 	// userInput 페이즈를 보여주기

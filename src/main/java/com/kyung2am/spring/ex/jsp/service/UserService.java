@@ -20,6 +20,13 @@ public class UserService {
 		return count;
 	}
 	
+	public int addUserByObject(User user){
+		
+		int count = userRepository.insertUserByObject(user);
+		
+		return count;
+	}
+	
 	public User getLastUser() {
 		User user = userRepository.selectLastUser();
 		return user;
