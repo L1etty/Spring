@@ -61,4 +61,25 @@ public class NewUserController {
 		return "/ajax/user/input";
 	}
 	
+	// email을 전달 받고, 이미 가입된 이메일인지 알려주는 API
+	@GetMapping("/email_confirm")
+	@ResponseBody
+	public Map<String, Boolean> isDuplicateEmail(@RequestParam("email") String email){
+		
+		//중복됨 : {"isDuplicate":true}
+		//중복안됨 : {"isDuplicate":false}
+		Map<String, Boolean> resultMap = new HashMap<>();
+			
+		if(newUserService.isDuplicateEmail(email)) {
+			//중복
+			resultMap.put("isDuplicate", true);
+		}else {
+			//노중복
+			resultMap.put("isDuplicate", false);
+		}
+		
+		return resultMap;
+		
+	}
+	
 }
