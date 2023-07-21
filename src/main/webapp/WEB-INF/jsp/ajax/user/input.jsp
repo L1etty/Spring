@@ -10,7 +10,7 @@
 	<h1>사용자 추가</h1>
 		<label>이름</label><input type="text" name="name" id="nameInput"><br>
 		<label>생년월일</label><input type="text" name="birthday" id="birthdayInput"><br>
-		<label>이메일</label><input type="text" name="email" id="emailInput"><br>
+		<label>이메일</label><input type="text" name="email" id="emailInput"><button type="button" id="duplicateBtn">중복확인</button><br>
 		<label>자기소개</label><br><textarea cols="50" rows="5" name="introduce" id="introduceInput"></textarea><br>
 		<button type="button" id="addBtn""addBtn">추가</button>
 	
@@ -19,6 +19,35 @@
 	<script>
 		
 		$(document).ready(function() {
+			
+			$("#duplicateBtn").on("click", function(){
+				let email = $("#emailInput").val();
+				
+				if(email == ""){
+					alert("이메일 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					
+					type:"get"
+					,url:"/ajax/user/email_confirm"
+					,data:{"email":email}
+					,success:function(data){
+						if(data.isDuplicate){
+							alert("이메일이 중복되었습니다.");
+						}else{
+							alert("사용가능한 이메일입니다.")
+						}
+					}
+					,error:function(){
+						alert("중복확인 에러");
+					}
+					
+				});
+				
+				
+			});
 			
 			$("#addBtn").on("click", function() {
 				//유효성 검사
