@@ -1,5 +1,8 @@
 package com.kyung2am.spring.ex.jpa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kyung2am.spring.ex.jpa.domain.Student;
+import com.kyung2am.spring.ex.jpa.repository.StudentRepository;
 import com.kyung2am.spring.ex.jpa.service.StudentService;
 
 @Controller
@@ -15,6 +19,9 @@ public class StudentController {
 
 	@Autowired
 	private StudentService studentService;
+	
+	@Autowired
+	private StudentRepository studentRepository;
 	
 	@GetMapping("/create")
 	@ResponseBody
@@ -48,8 +55,52 @@ public class StudentController {
 		return "삭제 성공";
 	}
 	
+	@GetMapping("/select")
+	@ResponseBody
+	public List<Student> selectStudent(){
+		
+		// 모든 행 조회
+//		List<Student> studentList = studentRepository.findAll();
+		
+		// id 기준으로 내림 차순 전체 조회
+		
+//		List<Student> studentList = studentRepository.findAllByOrderByIdDesc();
+		
+		// id 기준 내림차순 하나만 조회
+//		List<Student> studentList = studentRepository.findTop1ByOrderByIdDesc();
+		
+		// 전달한 이름과 일차하는 데이터만 조회
+//		List<Student> studentList = studentRepository.findByName("유재석");	
+		
+		// 이름 목록과 일치하는 모든 데이터 조회
+		// 유재석, 조세호
+//		List<String> nameList = new ArrayList<>();
+//		nameList.add("유재석");
+//		nameList.add("조세호");
+//		List<Student> studentList = studentRepository.findByNameIn(nameList);
+		
+		// email에 naver가 포함된 학생 조회
+//		List<Student> studentList = studentRepository.findByEmailContaining("naver");
+		
+		// 이름이 유씨인 학생 조회
+//		List<Student> studentList = studentRepository.findByNameStartingWith("유");
+		
+		// id가 1 ~ 3인값
+		List<Student> studentList = studentRepository.findByIdBetweenOrderByIdDesc(1, 3);
+		
+		return studentList;
+		
+	}
 	
 	
+	@GetMapping("/native")
+	@ResponseBody
+	public List<Student> nativeStudent(){
+		// 장래희망이 변호사인 데이터 조회
+		List<Student> studentList = studentRepository.findByDreamJobNative("모델");
+		
+		return studentList;
+	}
 	
 	
 	
